@@ -95,19 +95,24 @@ int main()
 	obj1.Printvals();
 	obj2.Printvals();
 	
-	obj1 + obj2;	// normal expression. Which operator is being called?
-	// obj1.operator+(obj2);	// equivalent, try it out
+	//obj1 + obj2;	// normal expression. Which operator is being called?
+	obj1.operator+(obj2);	// equivalent, try it out
 	obj1.Printvals();
 	obj2.Printvals();
 	
-	obj2 + obj1;	// normal expression. Which operator is being called?
-	// obj2.operator+(obj1);	// equivalent, try it out
+	//obj2 + obj1;	// normal expression. Which operator is being called?
+	obj2.operator+(obj1);	// equivalent, try it out
 	obj1.Printvals();
 	obj2.Printvals();
 
 	cout << "------------------------------------------------------------------" << endl;
 	obj1*2;		// Would 2*obj1 work? Give it a try.
 	obj2*f;		// Would f*obj2 work? Give it a try.
+
+	// Doesn't work!!
+	//2*obj1;
+	//f*obj2;
+
 	obj1.Printvals();
 	obj2.Printvals();
 	
@@ -117,7 +122,8 @@ int main()
 	obj1.Printvals();				// If not, how could you make it work?
 	obj2.Printvals();
 	obj3.Printvals();
-	
+
+	// Following looks in obj2 class for overloaded operator
 	obj3 = operator+(obj2, obj1);	// is this the same as before?
 	obj1.Printvals();
 	obj2.Printvals();
