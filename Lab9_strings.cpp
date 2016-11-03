@@ -79,6 +79,25 @@ int main()
 // 2) Replace any whitespace with a dot ('.').
 // Print the converted text.
 // ***********************************************************************
+	// foreach char in str
+	// use a reference
+	for(auto &c : str3)
+	{
+		if(islower(c))
+		{
+			c = toupper(c);
+		}
+		else if(isupper(c))
+		{
+			c = tolower(c);
+		}
+		else if(isspace(c))
+		{
+			c = '.';
+		}
+	}
+	cout << str3;
+
 
 	return 0;
 }
