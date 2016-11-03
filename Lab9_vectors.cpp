@@ -65,10 +65,59 @@ int main()
 	// 10 elements w/ val '0'
 	vector<int> tivec5(10, 0);
 // Do exercises 3.14 and 3.15 from Lippman (page 102)
+	// 3.14 Read sequence of ints from cin into vector
+
+	cout << "Enter a series of integers, ending with non-int" << endl;
+	int tmpi, i=0;
+	while(1)
+	{
+		cin >> tmpi;
+		if(isdigit(tmpi))
+		{
+			tivec5[i++] = tmpi;
+		}
+		else
+			break;
+	}
+	for(auto i : tivec5)
+	{
+		cout << i;
+	}
+
+	// 3.15 - 3.14 but w/ strings instead
+	vector<string> svec12;
+	cout << "Enter a series of strings " << endl;
+	string s;
+	i=0;
+	while(1)
+	{
+		cin >> s;
+		svec12[i++] = s;
+	}
+	for(auto c : svec12)
+	{
+		cout << c;
+	}
+
+
 
 
 // Try all the vector operations shown in table 3.5. Use the vectors above
 // or define new ones. Try different types.
+
+	/*
+	   .empty()
+	   .size()
+	   .push_back{val} // i.e. append
+	   vec[n]
+	   v1 = v2
+	   v1 = {2, 3, 1}
+	   v1 == v2
+	   v != v2
+	   <  <=, >, >=
+
+	   */
+
 // ***********************************************************************
 
 	return 0;
