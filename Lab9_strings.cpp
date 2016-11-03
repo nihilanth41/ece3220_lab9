@@ -13,7 +13,7 @@ using namespace std;
 int main()
 {
 	string s1, s2("Hello"), s3 = "World";
-	cout << "\nEnter a word:" << endl;
+	cout << "\nEnter a word: ";
 	cin >> s1;
 	
 	string s4(s1);
@@ -34,10 +34,43 @@ int main()
 // ***********************************************************************
 
 // -----------------------------------------------------------------------
-	string line;
-	cout << "\nEnter some text, finish it with an &" << endl;
-	getline(cin, line, '&');
-	cout << line << endl;
+	string line1;
+	cout << "\nEnter some text, finish it with an & ";
+	getline(cin, line1, '&');
+	cout << "String is: " << line1 << endl;
+	
+	string line2;
+	cout << "Enter a string: ";
+	cin >> line2;
+	cout << "String is: " << line2 << endl;
+
+	if(line2.empty()) 
+	{
+		cout << "Empty string";
+	}
+	cout << "String len: " << line2.size() << endl;
+	cout << "string[0] == " << line2[0] << endl;
+
+	string str3 = line1 + line2;
+
+	cout << "str1 + str2 => " << str3 << endl;
+
+	str3 = line1;
+
+	if(str3 == line1)
+		cout << "Strings equal" << endl;
+
+	if(str3 != line2) 
+		cout << "String not equal" << endl;
+
+	line1 = 'A'; 
+	line2 = 'a';
+
+	if(line1 < line2) 
+	{
+		cout << line1 << " < " << line2 << endl;
+	}
+
 
 // ***********************************************************************
 // Use a "Range for" (Lippman, page 93) and operations in table 3.3 to:
