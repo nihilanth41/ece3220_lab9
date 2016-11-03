@@ -52,8 +52,20 @@ int main()
 // vectors above and/or declare new vectors.
 // Some of those operations have already been used, but write your
 // own examples.
-
+	
+	// Empty Vector
+	vector<int> tivec1;
+	// Initialize w/ elements
+	vector<int> tivec2{1, 2, 3};
+	vector<int> tivec6 = {0, 1, 2};
+	// Initialize w/ elements of tivec2:
+	vector<int> tivec3(tivec2);
+	// Same as above
+	vector<int> tivec4 = tivec2;
+	// 10 elements w/ val '0'
+	vector<int> tivec5(10, 0);
 // Do exercises 3.14 and 3.15 from Lippman (page 102)
+
 
 // Try all the vector operations shown in table 3.5. Use the vectors above
 // or define new ones. Try different types.
