@@ -99,17 +99,28 @@ int main()
 		   cout << "Empty vector" << endl;
 	   }
 	   cout << "Size of empty vector: " << tivec1.size() << endl;
-	   /*
-	   .push_back{val} // i.e. append
-	   vec[n]
-	   v1 = v2
-	   v1 = {2, 3, 1}
-	   v1 == v2
-	   v != v2
-	   <  <=, >, >=
-
-	   */
-
+	   tivec1.push_back(9); // i.e. append
+	   cout << "New value in index 0: " << tivec1[0] << endl;
+	   tivec2 = {2, 3, 1};
+	   tivec1 = tivec2;
+	   if(tivec1 == tivec2) 
+	   {
+		   cout << "Equal" << endl;
+	   }
+	   tivec2 = {2, 2, 1};
+	   if(tivec1 != tivec2) 
+	   {
+		   cout << "Not Equal" << endl;
+	   }
+	   if(tivec1 > tivec2) 
+	   {
+		   cout << "vec1 > vec2" << endl;
+	   }
+	   tivec2 = {2, 3, 1, 0};
+	   if(tivec1 < tivec2) 
+	   {
+		   cout << "vec1 < vec2" << endl;
+	   }
 // ***********************************************************************
 
 	return 0;
