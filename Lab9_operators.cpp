@@ -119,15 +119,16 @@ int main()
 	cout << "------------------------------------------------------------------" << endl;
 	// Which operator is being called next?
 	obj3 = operator+(obj1, obj2);	// Would  obj3 = obj2 + obj1; work?
-	obj1.Printvals();				// If not, how could you make it work?
-	obj2.Printvals();
+	// If not, how could you make it work?
+	// Wouldn't work. I think could make this work by overloading the '=' operator for the Lab9 class
+	obj1.Printvals();				obj2.Printvals();
 	obj3.Printvals();
 
 	// Following looks in obj2 class for overloaded operator
 	obj3 = operator+(obj2, obj1);	// is this the same as before?
 	obj1.Printvals();
 	obj2.Printvals();
-	obj3.Printvals();
+	obj3.Printvals(); // Same as before, should be since addition is commutative
 	
 	return 0;
 }
