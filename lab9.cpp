@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <limits.h>
+#include <vector>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ class Signal {
 		int len;
 		double max_val;
 		double avg_val;
-		double *data;
+		vector<double> data;
 		void populate(const char *);
 		void getAverage(void);
 		void getMax(void);
@@ -31,7 +32,7 @@ class Signal {
 		Signal(int fileno);
 		Signal(const char *filename);
 		// Destructor
-		~Signal();
+		//~Signal();
 };
 
 void print_help(char **argv) {
@@ -144,7 +145,7 @@ void Signal::Save_file(const char *filename) {
 		fprintf(fp_w, "%d %0.4lf\n", len, max_val);
 		for(int i=0; i<len; i++)
 		{
-			fprintf(fp_w, "%0.4lf\n", *(data+i));
+			fprintf(fp_w, "%0.4lf\n", data[i]);
 		}
 		fclose(fp_w);
 	}
@@ -155,7 +156,7 @@ void Signal::offset(double offset_val) {
 	// Update data array
 	for(i=0; i<len; i++)
 	{
-		*(data+i) += offset_val;
+		data[i] += offset_val;
 	}
 	// Update data members
 	getAverage();
@@ -168,7 +169,7 @@ void Signal::scale(double scale_val) {
 	// Update data array
 	for(i=0; i<len; i++)
 	{
-		*(data+i) *= scale_val;
+		data[i] = data[i]*scale_val;
 	}
 	// Update data members
 	getAverage();
@@ -182,7 +183,7 @@ void Signal::center(void) {
 	// Update data array
 	for(i=0; i<len; i++)
 	{
-		*(data+i) -= avg_val;
+		data[i] = data[i]-avg_val;
 	}
 	// Update data members
 	getAverage();
@@ -196,7 +197,7 @@ void Signal::normalize(void) {
 	// Update data array
 	for(i=0; i<len; i++)
 	{
-		*(data+i) /= max_val;
+		data[i] = data[i]/max_val;
 	}
 	// Update data members
 	getAverage();
@@ -228,12 +229,13 @@ void Signal::populate(const char *filename) {
 	{
 		fscanf(fp_r, "%d %lf", &len, &max_val);
 		// allocate memory for signal
-		data = new double[len];
 		int i=0;
+		double tmp;
 		for(i=0; i<len; i++)
 		{
 			// Load data into array 
-			fscanf(fp_r, "%lf", data+i);
+			fscanf(fp_r, "%lf", &tmp);
+			data.push_back(tmp);
 		}
 		fclose(fp_r);
 	}
@@ -244,7 +246,7 @@ void Signal::getAverage(void) {
 	avg_val = 0;
 	for(i=0; i<len; i++)
 	{
-		avg_val += *(data+i);
+		avg_val += data[i];
 	}
 	avg_val /= (double)len;
 }
@@ -254,9 +256,9 @@ void Signal::getMax(void) {
 	int i=0;
 	for(i=0; i<len; i++)
 	{
-		if( *(data+i) > max_val )
+		if( data[i] > max_val )
 		{
-			max_val = *(data+i);
+			max_val = data[i];
 		}
 	}
 }	
@@ -283,7 +285,3 @@ Signal::Signal(const char *filename) {
 	getMax();
 }
 
-Signal::~Signal() {
-	// Free memory allocated at runtime
-	delete[] data;
-}
