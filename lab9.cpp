@@ -31,7 +31,6 @@ class Signal {
 		Signal();
 		Signal(int fileno);
 		Signal(const char *filename);
-		// Destructor
 		//~Signal();
 };
 
@@ -264,11 +263,9 @@ void Signal::getMax(void) {
 }	
 
 Signal::Signal() {
-/* Takes default file and allocates memory accordingly */
-	const char *filename = "Raw_data_01.txt";
-	populate(filename);
-	getAverage();
-	getMax();
+	len=0;
+	max_val=0.0;
+	avg_val=0.0;
 }
 
 Signal::Signal(int fileno) {
