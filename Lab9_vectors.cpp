@@ -67,7 +67,7 @@ int main()
 // Do exercises 3.14 and 3.15 from Lippman (page 102)
 	// 3.14 Read sequence of ints from cin into vector
 
-	cout << "Enter a sequence of integers: ";
+	cout << "Enter a sequence of 5 integers: ";
 	for(int i=0; i<5; i++)
 	{
 		static int tmp;
@@ -80,7 +80,7 @@ int main()
 
 	// 3.15 - 3.14 but w/ strings instead
 	vector<string> tsvec1;
-	cout << "Enter a sequence of strings: ";
+	cout << "Enter a sequence of 5 strings: ";
 	for(int i=0; i<5; i++)
 	{
 		static string tmp;
@@ -94,9 +94,12 @@ int main()
 // Try all the vector operations shown in table 3.5. Use the vectors above
 // or define new ones. Try different types.
 
-	/*
-	   .empty()
-	   .size()
+	   if(tivec1.empty())
+	   {
+		   cout << "Empty vector" << endl;
+	   }
+	   cout << "Size of empty vector: " << tivec1.size() << endl;
+	   /*
 	   .push_back{val} // i.e. append
 	   vec[n]
 	   v1 = v2
