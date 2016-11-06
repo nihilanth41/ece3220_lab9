@@ -10,14 +10,14 @@ using namespace std;
 
 class Signal { 
 	private:
-		int len;
 		double max_val;
 		double avg_val;
-		vector<double> data;
 		void populate(string);
+	public:
+		int len;
+		vector<double> data;
 		void getAverage(void);
 		void getMax(void);
-	public:
 		// Class methods
 		void offset(double);
 		void scale(double);
@@ -32,13 +32,11 @@ class Signal {
 		Signal();
 		Signal(int fileno);
 		Signal(string filename);
-		//~Signal();
 		// Member Operators
 		// Offset
 		void operator+(double);
+		//Scale
 		void operator*(double);
-		// Scale
-		
 };
 
 // These are member functions because they need to be able to access private members
@@ -60,13 +58,34 @@ void Signal::operator*(double scale) {
 		data[i] *= scale;
 	}
 }
+
+// Non member function operator
+Signal operator+(const Signal &lhs, const Signal &rhs) {
+	// Objects must be same size
+	if(lhs.len != rhs.len)
+		perror("Error: objects are not of same length");
+	else
+	{
+		Signal sum;
+		sum.len = lhs.len;
+		for(int i=0; i<sum.len; i++)
+		{
+			// use push_back to grow vector 
+			sum.data.push_back(lhs.data[i]);
+			sum.data[i] += rhs.data[i];
+		}
+		sum.getAverage();
+		sum.getMax();
+		return sum;
+	}
+}
 	
 void print_help(char **argv) {
 	cout << "Usage is: " << argv[0] << "[ -f <filename> ] or [ -n <file_number> ]" << endl;
 	cout << "With no arguments uses filename Raw_data_01.txt" << endl;
 	exit(EXIT_FAILURE);
 }
-
+
 void Signal::menu(void) {
 	while(1)
 	{
@@ -149,7 +168,14 @@ int main(int argc, char **argv) {
 		}
 	}
 	else {
-		// No cmd line arguments, call default constructor
+		// Demonstrate the non-member overloaded addition
+		// In this case the average of sums happens to be the sum of averages.
+		// Same story for the maximum, b/c the signals are identitical
+		Signal sig2 = Signal(1);
+		Signal sig3 = Signal(1);
+		Signal sig4 = sig2 + sig3;
+		sig4.Sig_info();
+
 		Signal sig1 = Signal();
 		sig1.Sig_info();
 		sig1.menu();
