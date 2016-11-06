@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <limits.h>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ class Signal {
 		double max_val;
 		double avg_val;
 		vector<double> data;
-		void populate(const char *);
+		void populate(string);
 		void getAverage(void);
 		void getMax(void);
 	public:
@@ -26,11 +27,11 @@ class Signal {
 		void menu(void);
 		// Additional
 		void Sig_info(void);
-		void Save_file(const char *filename);
+		void Save_file(string);
 		// Constructors
 		Signal();
 		Signal(int fileno);
-		Signal(const char *filename);
+		Signal(string filename);
 		//~Signal();
 };
 
@@ -81,10 +82,9 @@ void Signal::menu(void) {
 					break;
 				}
 			case 7:	{	cout << "Enter a filename: ";
-					char *output_file = new char[32];
+					string output_file;
 					cin >> output_file;
 					Save_file(output_file);
-					delete[] output_file;
 					break;
 				}
 			case 8: {
@@ -97,8 +97,6 @@ void Signal::menu(void) {
 	}
 }
 
-				 
-
 int main(int argc, char **argv) {
 	
 	/* Handle command line args */
@@ -110,7 +108,8 @@ int main(int argc, char **argv) {
 		if(!(strcmp(argv[1], "-f")))
 		{
 			// Call constructor with filename
-			Signal sig1 = Signal(argv[2]);
+			string filename(argv[2]);
+			Signal sig1 = Signal(filename);
 			sig1.Sig_info();
 			sig1.menu();
 		}
@@ -137,8 +136,8 @@ int main(int argc, char **argv) {
 
 
 
-void Signal::Save_file(const char *filename) {
-	FILE *fp_w = fopen(filename, "w");
+void Signal::Save_file(string filename) {
+	FILE *fp_w = fopen(filename.c_str(), "w");
 	if(fp_w != NULL)
 	{	
 		fprintf(fp_w, "%d %0.4lf\n", len, max_val);
@@ -217,9 +216,9 @@ void Signal::Sig_info(void) {
 
 /* Private */
 
-void Signal::populate(const char *filename) {
+void Signal::populate(string filename) {
 /* Reads data from file into data array */
-	FILE *fp_r = fopen(filename, "r");
+	FILE *fp_r = fopen(filename.c_str(), "r");
 	if(fp_r == NULL)
 	{
 		cout << "Error opening file" << endl;
@@ -269,14 +268,17 @@ Signal::Signal() {
 }
 
 Signal::Signal(int fileno) {
-	char filename[32];
-	sprintf(filename, "Raw_data_%02d.txt", fileno);
+	// Easiest way for some reason?
+	// Maybe there's a better way to format in C++ w/ strings but I couldn't figure it out.
+	char buf[32];
+	sprintf(buf, "Raw_data_%02d.txt", fileno);
+	string filename(buf);
 	populate(filename);
 	getAverage();
 	getMax();
 }
 
-Signal::Signal(const char *filename) {
+Signal::Signal(string filename) {
 	populate(filename);
 	getAverage();
 	getMax();
