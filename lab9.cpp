@@ -33,7 +33,28 @@ class Signal {
 		Signal(int fileno);
 		Signal(string filename);
 		//~Signal();
+		// Member Operators
+		// Offset
+		bool operator+(double);
+		// Scale
+		
 };
+
+// These are member functions because they need to be able to access private members
+// For offset
+bool Signal::operator+(double offset) {
+	// Update data array
+	for(int i=0; i<len; i++)
+	{
+		data[i] += offset;
+	}
+	// Update class members
+	getMax();
+	getAverage();
+}
+	
+
+
 
 void print_help(char **argv) {
 	cout << "Usage is: " << argv[0] << "[ -f <filename> ] or [ -n <file_number> ]" << endl;
@@ -133,9 +154,6 @@ int main(int argc, char **argv) {
 	return 0;	
 }
 
-
-
-
 void Signal::Save_file(string filename) {
 	FILE *fp_w = fopen(filename.c_str(), "w");
 	if(fp_w != NULL)
@@ -150,16 +168,11 @@ void Signal::Save_file(string filename) {
 }
 	
 void Signal::offset(double offset_val) {
-	int i=0;
 	// Update data array
-	for(i=0; i<len; i++)
-	{
-		data[i] += offset_val;
-	}
+	this->operator+(offset_val);
 	// Update data members
 	getAverage();
 	getMax();
-
 }
 
 void Signal::scale(double scale_val) {
