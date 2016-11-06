@@ -63,7 +63,10 @@ void Signal::operator*(double scale) {
 Signal operator+(const Signal &lhs, const Signal &rhs) {
 	// Objects must be same size
 	if(lhs.len != rhs.len)
-		perror("Error: objects are not of same length");
+	{
+		cout << "Error: objects are not of same length" << endl;
+		exit(-1);
+	}
 	else
 	{
 		Signal sum;
@@ -172,7 +175,7 @@ int main(int argc, char **argv) {
 		// In this case the average of sums happens to be the sum of averages.
 		// Same story for the maximum, b/c the signals are identitical
 		Signal sig2 = Signal(1);
-		Signal sig3 = Signal(1);
+		Signal sig3 = Signal(2);
 		Signal sig4 = sig2 + sig3;
 		sig4.Sig_info();
 
